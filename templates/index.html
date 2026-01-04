@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body { background: cornflowerblue; height: 100vh; display: flex; align-items: center; font-family: sans-serif; }
+        .register_page { width: 380px; margin: auto; }
+        .form { background: #ffff; padding: 40px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
+        .form h2 { color: cornflowerblue; text-align: center; margin-bottom: 20px; }
+        .form input { background: #f2f2f2; width: 100%; border: 0; margin: 0 0 12px; padding: 12px; box-sizing: border-box; font-size: 14px; border-radius: 4px; }
+        .submit_btn { width: 100%; background: white; border: 2px solid cornflowerblue; padding: 12px; cursor: pointer;
+                      font-size: 15px; text-transform: uppercase; font-weight: 700; color: cornflowerblue; transition: 0.3s; }
+        .submit_btn:hover { background: cornflowerblue; color: white; }
+        .result { text-align: center; margin-top: 20px; padding: 15px; background: #eef2ff; color: #2563eb; border-radius: 5px; font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="register_page">
+        <div class="form">
+            <h2>Price Predictor</h2>
+            <form action="/predict" method="POST">
+                <input type="number" name="sqft_living" placeholder="Sqft Living" value="{{ original_input.get('sqft_living', '') }}" required>
+                <input type="number" name="bedrooms" placeholder="Bedrooms" value="{{ original_input.get('bedrooms', '') }}">
+                <input type="number" name="grade" placeholder="Grade (1-13)" value="{{ original_input.get('grade', '') }}">
+                <input type="number" name="yr_built" placeholder="Year Built" value="{{ original_input.get('yr_built', '') }}">
+                <input type="number" name="zipcode" placeholder="Zipcode" value="{{ original_input.get('zipcode', '') }}">
+                <input type="text" name="lat" placeholder="Latitude" value="{{ original_input.get('lat', '') }}">
+                <input type="text" name="long" placeholder="Longitude" value="{{ original_input.get('long', '') }}">
+                <button type="submit" class="submit_btn">Predict Price</button>
+            </form>
+            
+            {% if prediction_text %}
+            <div class="result">
+                {{ prediction_text }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
